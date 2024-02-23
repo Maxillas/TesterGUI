@@ -7,28 +7,46 @@ MainWindow::MainWindow(QWidget *parent)
     mainWindow->setWindowTitle("TesterCitrexH4");
     mainWindow->resize(500, 500);
 
-    button1 = new QPushButton("ass" , this);
-    for (int i = 0; i < 10; i++){
+    // Массив кнопок для отладки
+    for (int i = 0; i < 5; i++){
         buttonList.append(new QPushButton("1" , this));
     }
 
-    m_verticalLayout = new QVBoxLayout(mainWindow);
-    m_horizontalLayout = new QHBoxLayout(mainWindow);
+    for (int i = 0; i < 5; i++){
+        buttonList.append(new QPushButton("2" , this));
+    }
 
+
+    makeMainLayout();
     makeMenuBar();
-    m_verticalLayout->setMenuBar(menuBar);
+    m_mainVerticalLayout->setMenuBar(menuBar);
+
+    makeCitrexDataField();
 
 
-    m_horizontalLayout->addWidget(buttonList[0]);
-    m_horizontalLayout->addWidget(buttonList[5]);
-    m_verticalLayout->addLayout(m_horizontalLayout);
+    m_mainHorizontalLayoutUpper->addLayout(m_CirexDataLayoutVertical);
+    m_mainHorizontalLayoutUpper->addWidget(buttonList[8]);
+
+    m_mainHorizontalLayoutLower->addWidget(buttonList[5]);
+    m_mainHorizontalLayoutLower->addWidget(buttonList[6]);
+
+    //m_horizontalLayoutUpper->addLayout(); // добавить лайаут из метода makeCitrexDataField()
+    //m_horizontalLayoutUpper->addLayout(); // добавить лайаут из метода makeALVDataField()
+
+    //m_horizontalLayoutLower->addLayout(); // добавить лайаут из метода makeModeField()
+    //m_horizontalLayoutLower->addLayout(); // добавить лайаут из метода makeErrorsField()
+
+
+    m_mainVerticalLayout->addLayout(m_mainHorizontalLayoutUpper);
+    m_mainVerticalLayout->addLayout(m_mainHorizontalLayoutLower);
+
 
 
 
     //m_horizontalLayout->addWidget(buttonList[0]);
 
 
-    mainWindow->setLayout(m_verticalLayout);
+    mainWindow->setLayout(m_mainVerticalLayout);
 
 
     mainWindow->show();
@@ -36,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-   delete button1;
+   // Спросить про необходимость удаление объектов в деструкторе
    //delete m_verticalLayout;
    //delete m_horizontalLayout;
     delete mainWindow;
@@ -44,6 +62,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::makeMenuBar()
 {
+    //создание меню
     citrexSetting = new QMenu("&Настройки Citrex");
     ALVSetting = new QMenu("&Установка параматров ИВЛ");
     ALVTester = new QMenu("&Параметры тестирования");
@@ -56,6 +75,35 @@ void MainWindow::makeMenuBar()
     menuBar->addMenu(citrexSetting);
     menuBar->addMenu(ALVSetting);
     menuBar->addMenu(ALVTester);
+
+
+}
+
+
+void MainWindow::makeMainLayout()
+{
+    // Создание разметки основного окна
+    m_mainVerticalLayout = new QVBoxLayout(mainWindow);
+    m_mainHorizontalLayoutUpper = new QHBoxLayout(mainWindow);
+    m_mainHorizontalLayoutLower = new QHBoxLayout(mainWindow);
+}
+
+void MainWindow::makeCitrexDataField()
+{
+    // Создание разметки левого верхнего угла (CitrexData)
+
+    LabelCitrexData = new QLabel("Citrex Data");
+    m_CirexDataLayoutVertical = new QVBoxLayout();
+    m_CitrexDataLayoutHorizontal = new QHBoxLayout();
+
+    m_CirexDataLayoutVertical->addWidget(LabelCitrexData);
+
+    //Временно для отладки
+    m_CitrexDataLayoutHorizontal->addWidget(buttonList[0]);
+    m_CitrexDataLayoutHorizontal->addWidget(buttonList[1]);
+    m_CitrexDataLayoutHorizontal->addWidget(buttonList[2]);
+
+    m_CirexDataLayoutVertical->addLayout(m_CitrexDataLayoutHorizontal);
 
 
 }
