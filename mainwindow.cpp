@@ -22,10 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
     m_mainVerticalLayout->setMenuBar(menuBar);
 
     makeCitrexDataField();
-
+    makeALVDataField();
 
     m_mainHorizontalLayoutUpper->addLayout(m_CirexDataLayoutVertical);
-    m_mainHorizontalLayoutUpper->addWidget(buttonList[8]);
+    m_mainHorizontalLayoutUpper->addLayout(m_ALVDataLayoutVertical);
+
+    //m_mainHorizontalLayoutUpper->addWidget(buttonList[8]);
 
     m_mainHorizontalLayoutLower->addWidget(buttonList[5]);
     m_mainHorizontalLayoutLower->addWidget(buttonList[6]);
@@ -39,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_mainVerticalLayout->addLayout(m_mainHorizontalLayoutUpper);
     m_mainVerticalLayout->addLayout(m_mainHorizontalLayoutLower);
-
-
 
 
     //m_horizontalLayout->addWidget(buttonList[0]);
@@ -91,20 +91,42 @@ void MainWindow::makeMainLayout()
 void MainWindow::makeCitrexDataField()
 {
     // Создание разметки левого верхнего угла (CitrexData)
-
     LabelCitrexData = new QLabel("Citrex Data");
+    LabelCitrexData->setAlignment(Qt::AlignCenter);
+    LabelCitrexData->setFrameShape(QFrame::Panel);
+
     m_CirexDataLayoutVertical = new QVBoxLayout();
     m_CitrexDataLayoutHorizontal = new QHBoxLayout();
+    PsupCitrex = new QLabel("Psup from Citrex");
+    PEEPCitrex = new QLabel("PEEP from Citrex");
 
-    m_CirexDataLayoutVertical->addWidget(LabelCitrexData);
 
-    //Временно для отладки
-    m_CitrexDataLayoutHorizontal->addWidget(buttonList[0]);
-    m_CitrexDataLayoutHorizontal->addWidget(buttonList[1]);
-    m_CitrexDataLayoutHorizontal->addWidget(buttonList[2]);
+    m_CirexDataLayoutVertical->addWidget(LabelCitrexData);   
+    m_CirexDataLayoutVertical->addWidget(PsupCitrex);
+    m_CirexDataLayoutVertical->addWidget(PEEPCitrex);
+
 
     m_CirexDataLayoutVertical->addLayout(m_CitrexDataLayoutHorizontal);
 
+}
+
+void MainWindow::makeALVDataField()
+{
+
+    // Создание разметки правого верхнего угла (ALVData)
+    LabelALVData = new QLabel("ALV Data");
+    LabelALVData->setAlignment(Qt::AlignCenter);
+    LabelALVData->setFrameShape(QFrame::Panel);
+
+    m_ALVDataLayoutVertical = new QVBoxLayout();
+    m_ALVDataLayoutHorizontal = new QHBoxLayout();
+
+
+    m_ALVDataLayoutVertical->addWidget(LabelALVData);
+    m_ALVDataLayoutVertical->addWidget(buttonList[0]);
+    m_ALVDataLayoutVertical->addWidget(buttonList[1]);
+
+    m_ALVDataLayoutVertical->addLayout(m_ALVDataLayoutHorizontal);
 
 }
 

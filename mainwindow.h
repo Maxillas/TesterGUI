@@ -8,6 +8,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QLabel>
+#include <QSpinBox>
 
 
 #include <QComboBox>
@@ -50,7 +51,7 @@ private:
     QVBoxLayout * m_ErrorsLayoutVertical;
     QHBoxLayout * m_ErrorsLayoutHorizontal;
 
-
+    //QSpinBox P
 
     // Отладка
     QList<QPushButton*> buttonList;
@@ -65,6 +66,9 @@ private:
     QLabel *LabelALVData;
     QLabel *LabelMode;
     QLabel *LabelErrors;
+
+    QLabel *PsupCitrex;
+    QLabel *PEEPCitrex;
 
 
     QMenuBar *menuBar;
