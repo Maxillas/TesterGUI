@@ -63,25 +63,23 @@ GUI_mainwindow::~GUI_mainwindow()
 void GUI_mainwindow::makeMenuBar()
 {
     //создание меню
+    RS232Setting = new QMenu("Настройка &RS232", this);
     citrexSetting = new QMenu("&Настройки Citrex", this);
     ALVSetting = new QMenu("&Установка параматров ИВЛ", this);
     ALVTester = new QMenu("&Параметры тестирования", this);
-    RS232Setting = new QMenu("Настройка &RS232", this);
 
-    citrexSetting->addAction("Установка параметров");
-    citrexSetting->addAction("Ex&it", this, SLOT(close()));
+    citrexSetting->addAction("&Установка параметров", this, SLOT(makeCitrexSettingWindow()));
+    citrexSetting->addAction("Показать текущие настройки");
 
     RS232Setting->addAction("Настройки подключения", this, SLOT(makeRS232SettingWindow()));
     RS232Setting->addAction("Подключиться", this, SLOT(connectRS232()));
     RS232Setting->addAction("Отключиться", this, SLOT(disconnectRS232()));
 
-
     menuBar = new QMenuBar(this);
+    menuBar->addMenu(RS232Setting);
     menuBar->addMenu(citrexSetting);
     menuBar->addMenu(ALVSetting);
     menuBar->addMenu(ALVTester);
-    menuBar->addMenu(RS232Setting);
-
 
 }
 
@@ -120,6 +118,7 @@ void GUI_mainwindow::makeCitrexDataField()
 void GUI_mainwindow::makeALVDataField()
 {
 
+    m_ALVDataLayoutVertical = new QVBoxLayout();
     // Создание разметки правого верхнего угла (ALVData)
     LabelALVData = new QLabel(this);
     LabelALVData->setText("ALV Data");
@@ -128,19 +127,19 @@ void GUI_mainwindow::makeALVDataField()
     LabelALVData->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     LabelALVData->setFixedHeight(70);
 
+    ALVDataOutputTextLabel = new QLabel(this);
+    ALVDataOutputTextLabel->setText("Here will be displayed data from ALV");
+    ALVDataOutputTextLabel->setAlignment(Qt::AlignCenter);
+    ALVDataOutputTextLabel->setFrameShape(QFrame::Panel);
+    ALVDataOutputTextLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_ALVDataLayoutVertical = new QVBoxLayout();
-    m_ALVDataLayoutHorizontal = new QHBoxLayout();
-
+    // m_ALVDataLayoutHorizontal = new QHBoxLayout();
 
     m_ALVDataLayoutVertical->setAlignment(Qt::AlignTop);
-
     m_ALVDataLayoutVertical->addWidget(LabelALVData);
+    m_ALVDataLayoutVertical->addWidget(ALVDataOutputTextLabel);
 
-    //m_ALVDataLayoutVertical->addWidget(buttonList[0]);
-    //m_ALVDataLayoutVertical->addWidget(buttonList[1]);
-
-    m_ALVDataLayoutVertical->addLayout(m_ALVDataLayoutHorizontal);
+  //  m_ALVDataLayoutVertical->addLayout(m_ALVDataLayoutHorizontal);
 
 }
 
@@ -193,6 +192,7 @@ void GUI_mainwindow::makeModeField()
 
 void GUI_mainwindow::makeErrorsField()
 {
+    m_ErrorsLayoutVertical = new QVBoxLayout();
 
     LabelErrors = new QLabel(this);
     LabelErrors->setText("Errors");
@@ -201,26 +201,30 @@ void GUI_mainwindow::makeErrorsField()
     LabelErrors->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     LabelErrors->setFixedHeight(70);
 
+    ErrorOutputTextLabel = new QLabel(this);
+    ErrorOutputTextLabel->setText("Here will be displayed Errors");
+    ErrorOutputTextLabel->setAlignment(Qt::AlignCenter);
+    ErrorOutputTextLabel->setFrameShape(QFrame::Panel);
+    ErrorOutputTextLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 
-    m_ErrorsLayoutVertical = new QVBoxLayout();
-    m_ErrorsLayoutHorizontal = new QHBoxLayout();
 
 
-    m_ErrorsLayoutVertical->setAlignment(Qt::AlignTop);
+    //m_ErrorsLayoutHorizontal = new QHBoxLayout();
+
+
+    //m_ErrorsLayoutVertical->setAlignment(Qt::AlignTop);
 
     m_ErrorsLayoutVertical->addWidget(LabelErrors);
+    m_ErrorsLayoutVertical->addWidget(ErrorOutputTextLabel);
 
-   // m_ErrorsLayoutVertical->addWidget(buttonList[7]);
-    //m_ErrorsLayoutVertical->addWidget(buttonList[8]);
 
-    //m_ErrorsLayoutVertical->addLayout(m_ModeLayoutHorizontal);
 }
 
 void GUI_mainwindow::makeRS232SettingWindow()
 {
     if(rs232SettingWindow == nullptr){
-        rs232SettingWindow = new GUI_RS232settingwindow();
+        rs232SettingWindow = new GUI_RS232SettingWindow();
         connect(rs232SettingWindow, SIGNAL(destroyed(QObject*)), this, SLOT(setRS232SettingWindowPtrInNull()));
         return;
     }
@@ -243,11 +247,30 @@ void GUI_mainwindow::disconnectRS232()
     qDebug() << "RS232 Disconnect";
 }
 
+void GUI_mainwindow::makeCitrexSettingWindow()
+{
+    if(citrexSettingWindow == nullptr){
+        citrexSettingWindow = new GUI_CitrexSettingWindow();
+        connect(citrexSettingWindow, SIGNAL(destroyed(QObject*)), this, SLOT(setCitrexSettingWindowPtrInNull()));
+        return;
+    }
+    QMessageBox::critical(this, "Error", "RS232 Setting window already open");
+}
+
+void GUI_mainwindow::setCitrexSettingWindowPtrInNull()
+{
+    citrexSettingWindow = nullptr;
+}
+
 void GUI_mainwindow::closeEvent(QCloseEvent *event)
 {
     //Переопределенный метод для закрытия дополнительно окна при закрытии основного
     if (rs232SettingWindow != nullptr) {
         delete rs232SettingWindow;
         rs232SettingWindow = nullptr;
+    }
+    if (citrexSettingWindow != nullptr) {
+        delete citrexSettingWindow;
+        citrexSettingWindow = nullptr;
     }
 }

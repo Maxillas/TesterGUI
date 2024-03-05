@@ -1,11 +1,11 @@
 #include "GUI_RS232SettingWindow.h"
 
-GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
+GUI_RS232SettingWindow::GUI_RS232SettingWindow(QWidget *parent):
     QWidget(parent)
 
 {
     this->setWindowTitle("RS232 Port Setting");
-    this->resize(400, 300);
+    this->setFixedSize(400, 300);
     this->show();
     this->setAttribute(Qt::WA_DeleteOnClose);
     layoutInputHorizontalName = new QHBoxLayout();
@@ -80,19 +80,12 @@ GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
     //layoutMainVertical->addWidget(btnDisconnectFromPort);
 
     this->setLayout(layoutMainVertical);
-    int a = 10;
-    int b = 20;
+
     connect(btnAcceptSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSetting())); // устанавливает настройки
     connect(btnCancelSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSettingDefault())); // по умолчанию
 }
 
-GUI_RS232settingwindow::~GUI_RS232settingwindow()
-{
-    qDebug() << "its destructor";
-    // isOpenStatus = false;
-}
-
-void GUI_RS232settingwindow::setRS232PortSetting()
+void GUI_RS232SettingWindow::setRS232PortSetting()
 {
     //citrexH4Ptr.setRS232setting(a);
     //Реализовать этот метод в классе citrex, сохраняем настройки, но порт НЕ СОЗДАЕМ
@@ -101,7 +94,7 @@ void GUI_RS232settingwindow::setRS232PortSetting()
     this->close();
 }
 
-void GUI_RS232settingwindow::setRS232PortSettingDefault()
+void GUI_RS232SettingWindow::setRS232PortSettingDefault()
 {
     //citrexH4Ptr.setRS232setting(a); //a - Будет дефолтными!
     //Реализовать этот метод в классе citrex, сохраняем настройки, но порт НЕ СОЗДАЕМ

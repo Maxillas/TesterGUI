@@ -13,6 +13,8 @@
 #include <QComboBox>
 //#include <QSerialPort>
 #include <GUI_RS232SettingWindow.h>
+#include <GUI_CitrexSettingWindow.h>
+
 
 
 #include <QDebug>
@@ -44,6 +46,8 @@ private slots:
     void setRS232SettingWindowPtrInNull();
     void connectRS232();
     void disconnectRS232();
+    void makeCitrexSettingWindow();
+    void setCitrexSettingWindowPtrInNull();
 
 private:
    // QSerialPort * rs232Ptr;
@@ -58,13 +62,13 @@ private:
     QVBoxLayout * m_CitrexDataLayoutVertical;
     QHBoxLayout * m_CitrexDataLayoutHorizontal;
     QVBoxLayout * m_ALVDataLayoutVertical;
-    QHBoxLayout * m_ALVDataLayoutHorizontal;
+
     QVBoxLayout * m_ModeLayoutVertical;
     QVBoxLayout * m_ModeLayoutVerticalInternalLeft;
     QVBoxLayout * m_ModeLayoutVerticalInternalRight;
     QHBoxLayout * m_ModeLayoutHorizontal;
     QVBoxLayout * m_ErrorsLayoutVertical;
-    QHBoxLayout * m_ErrorsLayoutHorizontal;
+
 
     //QSpinBox P
 
@@ -91,16 +95,22 @@ private:
     QLabel *PsupCitrex;
     QLabel *PEEPCitrex;
 
+    QLabel *ALVDataOutputTextLabel;
+    QLabel *ErrorOutputTextLabel;
+
+
     QDoubleSpinBox * SpinBoxModePsup;
     QDoubleSpinBox * SpinBoxModePEEP;
     QDoubleSpinBox * SpinBoxModePvar;
+
 
 
     QMenuBar *menuBar;
 
     //QWidget *mainWindow;
 
-    GUI_RS232settingwindow * rs232SettingWindow = nullptr;
+    GUI_RS232SettingWindow * rs232SettingWindow = nullptr;
+    GUI_CitrexSettingWindow * citrexSettingWindow = nullptr;
 };
 #endif // GUI_MAINWINDOW_H
 

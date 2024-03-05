@@ -9,13 +9,12 @@
 #include <QComboBox>
 
 
-class GUI_RS232settingwindow: public QWidget
+class GUI_RS232SettingWindow: public QWidget
 {
     Q_OBJECT
 public:
-    explicit GUI_RS232settingwindow(QWidget *parent = nullptr);
-    //explicit GUI_RS232settingwindow(QWidget *parent = nullptr, CitrexH4 & citrexLink);
-    ~GUI_RS232settingwindow();
+    explicit GUI_RS232SettingWindow(QWidget *parent = nullptr);
+    //explicit GUI_RS232SettingWindow(QWidget *parent = nullptr, CitrexH4 & citrexLink);
 public slots:
    void setRS232PortSetting(); //внутри массив с настройками, которые ввел пользователь
    void setRS232PortSettingDefault(); //внутри стандартные настройки
