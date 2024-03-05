@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QDoubleSpinBox>
 #include <QComboBox>
+//#include <QSerialPort>
 #include <GUI_RS232SettingWindow.h>
 
 
@@ -41,7 +42,13 @@ public:
 private slots:
     void makeRS232SettingWindow();
     void setRS232SettingWindowPtrInNull();
+    void connectRS232();
+    void disconnectRS232();
+
 private:
+   // QSerialPort * rs232Ptr;
+
+
     // Основные лайауты
     QHBoxLayout * m_mainHorizontalLayoutUpper;
     QHBoxLayout * m_mainHorizontalLayoutLower;

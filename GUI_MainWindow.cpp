@@ -3,7 +3,11 @@
 GUI_mainwindow::GUI_mainwindow(QWidget *parent):
     QWidget(parent)
 {
-   // mainWindow = new QWidget();
+    //citrexH4 = new CitrexH4();
+    //Создаем объект цитрикса при открытии окна
+
+
+
     this->setWindowTitle("TesterCitrexH4");
     this->resize(800, 600);
 
@@ -67,10 +71,9 @@ void GUI_mainwindow::makeMenuBar()
     citrexSetting->addAction("Установка параметров");
     citrexSetting->addAction("Ex&it", this, SLOT(close()));
 
-    RS232Setting->addAction("Создание нового подключения", this, SLOT(makeRS232SettingWindow()));
-
-    RS232Setting->addAction("Показать параметры подключения");
-    RS232Setting->addAction("Прервать соединение");
+    RS232Setting->addAction("Настройки подключения", this, SLOT(makeRS232SettingWindow()));
+    RS232Setting->addAction("Подключиться", this, SLOT(connectRS232()));
+    RS232Setting->addAction("Отключиться", this, SLOT(disconnectRS232()));
 
 
     menuBar = new QMenuBar(this);
@@ -216,15 +219,12 @@ void GUI_mainwindow::makeErrorsField()
 
 void GUI_mainwindow::makeRS232SettingWindow()
 {
-    qDebug() << "its SLOT!";
     if(rs232SettingWindow == nullptr){
         rs232SettingWindow = new GUI_RS232settingwindow();
         connect(rs232SettingWindow, SIGNAL(destroyed(QObject*)), this, SLOT(setRS232SettingWindowPtrInNull()));
         return;
     }
     QMessageBox::critical(this, "Error", "RS232 Setting window already open");
-
-    //rs232SettingWindow->destroyed();
 }
 
 void GUI_mainwindow::setRS232SettingWindowPtrInNull()
@@ -232,11 +232,22 @@ void GUI_mainwindow::setRS232SettingWindowPtrInNull()
     rs232SettingWindow = nullptr;
 }
 
+void GUI_mainwindow::connectRS232()
+{
+    qDebug() << "RS232 Connect";
+    //citrexH4->createRS232Port;
+}
+
+void GUI_mainwindow::disconnectRS232()
+{
+    qDebug() << "RS232 Disconnect";
+}
+
 void GUI_mainwindow::closeEvent(QCloseEvent *event)
 {
+    //Переопределенный метод для закрытия дополнительно окна при закрытии основного
     if (rs232SettingWindow != nullptr) {
         delete rs232SettingWindow;
         rs232SettingWindow = nullptr;
     }
-    qDebug() << "ITS CLOSE!";
 }

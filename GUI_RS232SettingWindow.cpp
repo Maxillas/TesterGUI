@@ -14,6 +14,7 @@ GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
     layoutInputHorizontalParity = new QHBoxLayout();
     layoutInputHorizontalStopBits = new QHBoxLayout();
     layoutInputHorizontalFlowControl = new QHBoxLayout();
+    layoutInputHorizontalButtons = new QHBoxLayout();
     layoutMainVertical = new QVBoxLayout();
 
     portNameLabel = new QLabel("RS232 Port Name: ", this);
@@ -47,6 +48,11 @@ GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
     portFlowControlComboBox->addItem("Yes");
     portFlowControlComboBox->addItem("No");
 
+    //btnConnectToPort = new QPushButton("Connect");
+    //btnDisconnectFromPort = new QPushButton("Disconnect");
+    btnAcceptSetting = new QPushButton("Accept");
+    btnCancelSetting = new QPushButton("Cancel");
+
     layoutInputHorizontalName->addWidget(portNameLabel);
     layoutInputHorizontalName->addWidget(portNameLineEdit);
     layoutInputHorizontalBoudRate->addWidget(portBoudRateLabel);
@@ -59,6 +65,8 @@ GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
     layoutInputHorizontalStopBits->addWidget(portStopBitsComboBox);
     layoutInputHorizontalFlowControl->addWidget(portFlowControlLabel);
     layoutInputHorizontalFlowControl->addWidget(portFlowControlComboBox);
+    layoutInputHorizontalButtons->addWidget(btnAcceptSetting);
+    layoutInputHorizontalButtons->addWidget(btnCancelSetting);
 
     layoutMainVertical->addLayout(layoutInputHorizontalName);
     layoutMainVertical->addLayout(layoutInputHorizontalBoudRate);
@@ -66,13 +74,29 @@ GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
     layoutMainVertical->addLayout(layoutInputHorizontalParity);
     layoutMainVertical->addLayout(layoutInputHorizontalStopBits);
     layoutMainVertical->addLayout(layoutInputHorizontalFlowControl);
+    layoutMainVertical->addLayout(layoutInputHorizontalButtons);
+
+    //layoutMainVertical->addWidget(btnConnectToPort);
+    //layoutMainVertical->addWidget(btnDisconnectFromPort);
 
     this->setLayout(layoutMainVertical);
+    int a = 10;
+    int b = 20;
+    connect(btnAcceptSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSetting(a))); // возвращает настройки
+    //connect(btnCancelSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSetting(b))); // плюс сброс настроек
 }
 
 GUI_RS232settingwindow::~GUI_RS232settingwindow()
 {
     qDebug() << "its destructor";
-   // isOpenStatus = false;
+    // isOpenStatus = false;
+}
+
+void GUI_RS232settingwindow::setRS232PortSetting(int a)
+{
+    //citrexH4Ptr.setRS232setting(a);
+    //Реализовать этот метод в классе citrex, сохраняем настройки, но порт НЕ СОЗДАЕМ
+    //Принимаем значение, либо дефолт, либо введенные пользователем
+    this->close();
 }
 

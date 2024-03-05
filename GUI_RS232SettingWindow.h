@@ -14,7 +14,11 @@ class GUI_RS232settingwindow: public QWidget
     Q_OBJECT
 public:
     explicit GUI_RS232settingwindow(QWidget *parent = nullptr);
+    //explicit GUI_RS232settingwindow(QWidget *parent = nullptr, CitrexH4 & citrexLink);
     ~GUI_RS232settingwindow();
+private slots:
+   void setRS232PortSetting(int a); //a - массив с настройками, которые ввел пользователь
+
 
 private:
     QHBoxLayout* layoutInputHorizontalName;
@@ -23,6 +27,7 @@ private:
     QHBoxLayout* layoutInputHorizontalParity;
     QHBoxLayout* layoutInputHorizontalStopBits;
     QHBoxLayout* layoutInputHorizontalFlowControl;
+    QHBoxLayout* layoutInputHorizontalButtons;
 
 
     QVBoxLayout* layoutMainVertical;
@@ -32,7 +37,10 @@ private:
     QLabel* portParityLabel;
     QLabel* portStopBitsLabel;
     QLabel* portFlowControlLabel;
-    QPushButton* btnConnectToPort;
+    QPushButton* btnAcceptSetting;
+    QPushButton* btnCancelSetting;
+    //QPushButton* btnConnectToPort;
+    //QPushButton* btnDisconnectFromPort;
 
     QLineEdit* portNameLineEdit;
 
@@ -41,6 +49,8 @@ private:
     QComboBox* portParityComboBox;
     QComboBox* portStopBitsComboBox;
     QComboBox* portFlowControlComboBox;
+
+    //CitrexH4& citrexH4Ptr; //ссылка на класс цитрекса для настройки порта
 
 };
 
