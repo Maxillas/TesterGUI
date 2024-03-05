@@ -4,6 +4,7 @@
 *.pro.*
 *.sqlite3*
 build/*
+citrexh4QT/build/*
 .vscode/*
 .cashe/*
 *.pro

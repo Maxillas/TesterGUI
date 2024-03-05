@@ -14,14 +14,17 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
+        GUI_MainWindow.cpp
+        GUI_MainWindow.h
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(GUI
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+
+        GUI_RS232SettingWindow.h GUI_RS232SettingWindow.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET GUI APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -42,6 +45,8 @@ else()
 endif()
 
 target_link_libraries(GUI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+target_include_directories( GUI PRIVATE "${CMAKE_SOURCE_DIR}" )
 
 set_target_properties(GUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
