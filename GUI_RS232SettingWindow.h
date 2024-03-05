@@ -16,8 +16,9 @@ public:
     explicit GUI_RS232settingwindow(QWidget *parent = nullptr);
     //explicit GUI_RS232settingwindow(QWidget *parent = nullptr, CitrexH4 & citrexLink);
     ~GUI_RS232settingwindow();
-private slots:
-   void setRS232PortSetting(int a); //a - массив с настройками, которые ввел пользователь
+public slots:
+   void setRS232PortSetting(); //внутри массив с настройками, которые ввел пользователь
+   void setRS232PortSettingDefault(); //внутри стандартные настройки
 
 
 private:

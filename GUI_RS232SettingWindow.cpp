@@ -82,8 +82,8 @@ GUI_RS232settingwindow::GUI_RS232settingwindow(QWidget *parent):
     this->setLayout(layoutMainVertical);
     int a = 10;
     int b = 20;
-    connect(btnAcceptSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSetting(a))); // возвращает настройки
-    //connect(btnCancelSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSetting(b))); // плюс сброс настроек
+    connect(btnAcceptSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSetting())); // устанавливает настройки
+    connect(btnCancelSetting, SIGNAL(clicked(bool)), this, SLOT(setRS232PortSettingDefault())); // по умолчанию
 }
 
 GUI_RS232settingwindow::~GUI_RS232settingwindow()
@@ -92,11 +92,21 @@ GUI_RS232settingwindow::~GUI_RS232settingwindow()
     // isOpenStatus = false;
 }
 
-void GUI_RS232settingwindow::setRS232PortSetting(int a)
+void GUI_RS232settingwindow::setRS232PortSetting()
 {
     //citrexH4Ptr.setRS232setting(a);
     //Реализовать этот метод в классе citrex, сохраняем настройки, но порт НЕ СОЗДАЕМ
-    //Принимаем значение, либо дефолт, либо введенные пользователем
+    //Принимаем значение,
+    qDebug() << "это от пользователя установки";
+    this->close();
+}
+
+void GUI_RS232settingwindow::setRS232PortSettingDefault()
+{
+    //citrexH4Ptr.setRS232setting(a); //a - Будет дефолтными!
+    //Реализовать этот метод в классе citrex, сохраняем настройки, но порт НЕ СОЗДАЕМ
+    //дефолтные значения устанавливаем
+    qDebug() << "это дефолтные";
     this->close();
 }
 
